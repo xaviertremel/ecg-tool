@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+To build the image and start the container, run `docker-compose up -d --build`
+
+When it is done, you should be able to see the app in the browser at [http://localhost:3001/](http://localhost:3001/)
+
 ## Available Scripts
 
 In the project directory, you can run:
