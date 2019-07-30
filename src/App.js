@@ -1,16 +1,24 @@
 import React from 'react'
 
-import Navigation from './Components/Navigation'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import './App.css';
+import Navigation from './Components/Navigation'
+import Images from './Screens/Images'
+import Image from './Screens/Image'
+
+import './App.css'
 
 function App() {
   return (
     <div className="App">
       <Navigation />
-      <h1>Images</h1>
+      <Router>
+        <Route path="/" exact component={Images} />
+        <Route path="/images/" component={Images} />
+        <Route path="/image/:imageId" component={Image} />
+      </Router>
     </div>
   );
 }
 
-export default App;
+export default App
