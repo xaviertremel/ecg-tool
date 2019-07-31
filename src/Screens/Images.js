@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'semantic-ui-react'
 
 import Image from '../Components/Image'
+import SearchField from '../Components/SearchField'
 
 const Images = () => {
   const [images, setImages] = useState([])
+  const [filteredImages, setFilteredImages] = useState([])
   const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
@@ -13,21 +15,30 @@ const Images = () => {
       headers: {'Content-Type': 'application/json'}
     })
       .then(response => response.json())
-      .then((result) => setImages(result))
+      .then((result) => { setImages(result); setFilteredImages(result); })
       .catch(error => console.error(error))
   }, [])
 
   const handleSubmit = (updatedImage) => {
     //TODO update the image via the API
-    setImages(images.map(image => image._id === updatedImage._id ? updatedImage : image))
+    const updatedImages = images.map(image => image._id === updatedImage._id ? updatedImage : image)
+    setImages(updatedImages)
+    setFilteredImages(updatedImages)
     setSelectedImage(null)
   }
 
   return (
     <React.Fragment>
       <h1>Images</h1>
-      {(images.length === 0) 
-        ? <p>Loading...</p>
+      <SearchField 
+        onFilterImages={(searchTerm) => setFilteredImages( 
+          (searchTerm === '')
+            ? images
+            : images.filter(image => image.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        )}
+      />
+      {(filteredImages.length === 0) 
+        ? (images.length === 0) ? <p>Loading...</p> : <p>No images found</p>
         : <Table>
             <Table.Header>
               <Table.Row>
@@ -39,7 +50,7 @@ const Images = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {images.map(image =>
+              {filteredImages.map(image =>
                 <Table.Row key={image._id} onClick={() => setSelectedImage(image)} style={{ cursor: 'pointer' }}>
                   <Table.Cell>
                     {image.title}
