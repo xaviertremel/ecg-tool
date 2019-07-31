@@ -4,8 +4,8 @@ import { Modal, Form, Button } from 'semantic-ui-react'
 //TODO implement the missing fields
 const Image = (props) => {
   const [values, setValues] = useState({
-    title: props.image.title,
-    Author: props.image.Author,
+    title: props.image ? props.image.title : '',
+    Author: props.image ? props.image.Author : '',
   })
 
   const handleChange = name => event => {
