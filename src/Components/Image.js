@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Form, Button } from 'semantic-ui-react'
 
+//TODO implement the missing fields
 const Image = (props) => {
   const [values, setValues] = useState({
     title: props.image.title,

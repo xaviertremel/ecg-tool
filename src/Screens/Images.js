@@ -4,6 +4,7 @@ import { Table } from 'semantic-ui-react'
 import Image from '../Components/Image'
 import SearchField from '../Components/SearchField'
 
+//TODO implement pagination
 const Images = () => {
   const [images, setImages] = useState([])
   const [filteredImages, setFilteredImages] = useState([])
